@@ -20,19 +20,19 @@ const AddProduct = () => {
         setProductDetails({ ...productDetails, [e.target.name]: e.target.value });
     }
 
- 
-    
+
+
     const addProduct = async () => {
         if (!productDetails.name || !productDetails.new_price || !productDetails.old_price || !image) {
             alert("Please fill in all fields and upload an image.");
             return;
         }
-    
+
         const product = { ...productDetails, new_price: Number(productDetails.new_price), old_price: Number(productDetails.old_price) };
         let formData = new FormData();
         formData.append('product', image);
         console.log("Form Data:", formData);
-    
+
         try {
             const uploadResponse = await fetch('http://localhost:4500/upload', {
                 method: 'POST',
@@ -41,9 +41,9 @@ const AddProduct = () => {
                 },
                 body: formData,
             }).then(res => res.json());
-    
-            console.log("Upload Response:", uploadResponse);  // Log the upload response
-    
+
+            console.log("Upload Response:", uploadResponse);
+
             if (uploadResponse.succes) {
                 product.image = uploadResponse.image_url;
                 const addResponse = await fetch('http://localhost:4500/addproduct', {
@@ -54,9 +54,9 @@ const AddProduct = () => {
                     },
                     body: JSON.stringify(product),
                 }).then(res => res.json());
-    
-                console.log("Add Product Response:", addResponse);  // Log the add product response
-    
+
+                console.log("Add Product Response:", addResponse);
+
                 if (addResponse.succes) {
                     alert("Product Added");
                 } else {
@@ -72,7 +72,7 @@ const AddProduct = () => {
             alert("An error occurred while adding the product.");
         }
     }
-    
+
 
 
     return (

@@ -19,17 +19,17 @@ const ListProduct = () => {
     fetchInfo()
   }, [])
 
-const remove_product=async(id)=>{
-  await fetch('http://localhost:4500/removeproduct',{
-    method:'POST',
-    headers:{
-      Accept:'application/json',
-      'Content-Type':'application/json',
-    },
-    body:JSON.stringify({id:id})
-  })
- await fetchInfo()
-}
+  const remove_product = async (id) => {
+    await fetch('http://localhost:4500/removeproduct', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: id })
+    })
+    await fetchInfo()
+  }
 
 
   return (
@@ -46,24 +46,24 @@ const remove_product=async(id)=>{
       <div className="listproduct-allproducts">
         <hr />
         {allProducts.map((product, index) => (
-  <React.Fragment key={index}>
-    <div className="listproduct-format-main listproduct-format">
-      <img src={product.image} alt="" className="listproduct-product-icon" />
-      <p>{product.name}</p>
-      <p>{product.old_price}</p>
-      <p>{product.new_price}</p>
-      <p>{product.category}</p>
-      <img
-  onClick={() => remove_product(product.id)} // Make sure to wrap the function call in an arrow function
-  src={cross_icon}
-  alt=""
-  className="listproduct-remove-icon"
-/>
+          <React.Fragment key={index}>
+            <div className="listproduct-format-main listproduct-format">
+              <img src={product.image} alt="" className="listproduct-product-icon" />
+              <p>{product.name}</p>
+              <p>{product.old_price}</p>
+              <p>{product.new_price}</p>
+              <p>{product.category}</p>
+              <img
+                onClick={() => remove_product(product.id)}
+                src={cross_icon}
+                alt=""
+                className="listproduct-remove-icon"
+              />
 
-    </div>
-    <hr />
-  </React.Fragment>
-))}
+            </div>
+            <hr />
+          </React.Fragment>
+        ))}
 
       </div>
     </div>
